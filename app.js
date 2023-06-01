@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const ejsMate=require('ejs-mate')
 const mongoose = require("mongoose");
 const Campground = require("./models/campgrounds");
 const methodOverride = require("method-override");
@@ -14,6 +15,7 @@ mongoose
     console.log(err.message);
 });
 
+app.engine('ejs',ejsMate)
 app.set("view enigne", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));

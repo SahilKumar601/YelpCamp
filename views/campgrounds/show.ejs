@@ -1,20 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CampGround</title>
-</head>
-<body>
+<% layout('layout/boilerplate.ejs') %>
     <h1><%=foundCamp.title%></h1>
     <ul>
         <li><%=foundCamp.location%></li>
     </ul>
     <a href="/campgrounds/<%=foundCamp._id%>/edit">Edit</a>
     <a href="/campgrounds/">All CampGrounds</a>
+    <img src="<%=foundCamp.image%>" alt="Image Not Found">
+    <p><%=foundCamp.description%></p>
     <form action="/campgrounds/<%=foundCamp._id%>?_method=DELETE" method="POST">
             <button>Delete</button>
     </form>
-</body>
-</html>
