@@ -22,17 +22,35 @@
                 Updated 3 days ago
             </div>
           </div>
-            <h1>Leave a Review</h1>
-            <form action="/campgrounds/<%=foundCamp._id%>/reviews" method="POST" class="mb-3">
-              <div class="mb-3">
-                <label for="Rating">Rating</label>
-                <input class="form-range" type="range" min="1" max="5" name="review[rating]" id="Rating">
-              </div>
-              <div class="mb-2">
-                <label class="form-control" for="review">Review</label>
-                <textarea name="review[body]" id="review" cols="70" rows="3"></textarea>
-              </div>
-              <button class="btn btn-success mb-3">Submit</button>
-            </form>
+    </div>
+    <div class="col-6 offset-3">
+      <h1>Leave a Review</h1>
+      <form action="/campgrounds/<%=foundCamp._id%>/reviews" method="POST" novalidate class="vaildated_form">
+        <div class="mb-3">
+          <label for="Rating">Rating</label>
+          <input class="form-range" type="range" min="1" max="5" name="review[rating]" id="Rating">
+        </div>
+        <div class="mb-2">
+          <label class="form-control" for="review">Review</label>
+          <textarea name="review[body]" id="review" cols="70" rows="3" required></textarea>
+          <div class="valid-feedback">
+            Looks Good!
+          </div>
+        </div>
+        <button class="btn btn-success mb-3">Submit</button>
+      </form>
+        <% for (let i of foundCamp.review) {%>
+          <div class="card mb-3">
+            <div class="mb-3">
+              <h5 class="card-title"><%=foundCamp.title%></h5>
+              <p class="card-text"><%=foundCamp.description%></p>
+              <p>Rating: <%=i.rating%></p>
+              <p>Review: <%=i.body%></p>
+              <form action="/campgrounds/<%=foundCamp._id%>/reviews/<%=i._id%>?_method=DELETE" method="POST">
+                <button class=" btn btn-danger">Delete</button>
+              </form>
+            </div>
+          </div>
+        <%}%>
     </div>
 </div>
