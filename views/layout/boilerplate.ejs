@@ -15,50 +15,31 @@
       integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
       crossorigin="anonymous"></script>
      
-    </main>
-    <%-include('../partials/footer.ejs')%>
     <script>
       // Example starter JavaScript for disabling form submissions if there are invalid fields
-  (function () {
-    'use strict'
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      (function () {
+        'use strict'
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
     const forms = document.querySelectorAll('.vaildated_form')
     Array.from(forms)
-      .forEach(function (form) {
-        form.addEventListener('submit', function (event) {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-          }
-  
-          form.classList.add('was-validated')
-        }, false)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        
+        form.classList.add('was-validated')
+      }, false)
       })
-  })()
+    })()
   </script>
 </head>
 <body class="d-flex flex-column vh-100">
   <%-include('../partials/nav.ejs')%>
   <main class="container mt-5">
-      <%- body %>
-      <script>
-  // Example starter JavaScript for disabling form submissions if there are invalid fields
-(function () {
-'use strict'
-// Fetch all the forms we want to apply custom Bootstrap validation styles to
-const forms = document.querySelectorAll('.vaildated_form')
-Array.from(forms)
-  .forEach(function (form) {
-    form.addEventListener('submit', function (event) {
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
-
-      form.classList.add('was-validated')
-    }, false)
-  })
-})()
-</script>
+    <%- body %>
+  </main>
+  <%-include('../partials/footer.ejs')%>
   </body>
-</html>
+  </html>
