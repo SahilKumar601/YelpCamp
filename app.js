@@ -54,7 +54,7 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use((req,res,next)=>{
   res.locals.success=req.flash('success')
-  res.locals.delete=req.flash('delete')
+  res.locals.currentUser=req.user;
   res.locals.error=req.flash('error')
   next();
 })

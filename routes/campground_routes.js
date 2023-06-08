@@ -26,7 +26,7 @@ router.get("/", catchAsync(async (req, res) => {
 router.get("/new",isLoggedIn,(req, res) => {
     res.render("campgrounds/new.ejs");
 });
-router.post("/",validation, catchAsync(async (req, res,next) => {
+router.post("/",isLoggedIn,validation, catchAsync(async (req, res,next) => {
       const camp = new Campground(req.body.campground);
       await camp.save();
       req.flash('success','Campground Added!!!!');
@@ -41,23 +41,24 @@ router.get("/:id", catchAsync(async (req, res,next) => {
     }
     res.render("campgrounds/show.ejs", { foundCamp });
 }));
-router.get("/:id/edit",catchAsync(async(req,res,next)=>{
+router.get("/:id/edit",isLoggedIn,catchAsync(async(req,res,next)=>{
       const {id}=req.params;
       // res.send(id)
       const camp= await Campground.findById(id);
       res.render('campgrounds/edit.ejs',{ camp })
 }))
-router.put("/:id",catchAsync(async(req,res,next)=>{
+router.put("/:id",isLoggedIn,catchAsync(async(req,res,next)=>{
       const {id}=req.params
       const UpdateCamp=await Campground.findByIdAndUpdate(id,req.body.campground,{new:true})
       req.flash('success','Updated Successfully')
       res.redirect(`/campgrounds/${UpdateCamp._id}`)
 }))
-router.delete("/:id",catchAsync(async(req,res,next)=>{
+router.delete("/:id",isLoggedIn,catchAsync(async(req,res,next)=>{
     const {id}=req.params
     const delCamp=await Campground.findByIdAndDelete(id);
     req.flash('delete','Campground Deleted!!')
     res.redirect('/campgrounds');
 }))
+
 
 module.exports=router
