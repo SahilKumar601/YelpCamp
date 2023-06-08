@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const catchAsync=require('../utils/catchAsync.js')
+const catchAsync=require('../utils/catchAsync.js');
 const ExpressError=require('../utils/ExpressError.js')
 const Campground = require("../models/campgrounds.js");
 const { error } = require("console");
-const {campgroundSchema}=require('../schema.js')
+const {campgroundSchema}=require('../schema.js');
+const {isLoggedIn}=require('../middleware.js');
 
 const validation=(req,res,next)=>{
     const { error } = campgroundSchema.validate(req.body);
@@ -22,7 +23,7 @@ router.get("/", catchAsync(async (req, res) => {
     const camps = await Campground.find({});
     res.render("campgrounds/index.ejs", { camps });
 }));
-router.get("/new", (req, res) => {
+router.get("/new",isLoggedIn,(req, res) => {
     res.render("campgrounds/new.ejs");
 });
 router.post("/",validation, catchAsync(async (req, res,next) => {
