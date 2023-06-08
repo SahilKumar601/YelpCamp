@@ -10,20 +10,24 @@
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item text-muted"><%=foundCamp.location%></li>
+              <li class="list-group-item">Submitted By: <%=foundCamp.author.username%></li>
               <li class="list-group-item">$<%=foundCamp.price%>/night</li>
             </ul>
+            <% if(currentUser && foundCamp.author.equals(currentUser._id)) {%>
             <div class="card-body">
                 <a href="/campgrounds/<%=foundCamp._id%>/edit" class="card-link btn btn-info">Edit</a>
                 <form class="d-inline" action="/campgrounds/<%=foundCamp._id%>?_method=DELETE" method="POST">
                     <button class="btn btn-danger">Delete</button>
                 </form>
             </div>
+            <% } %>
             <div class="card-footer text-muted">
                 Updated 3 days ago
             </div>
           </div>
     </div>
     <div class="col-6"style="margin-top: 60px;">
+      <% if(currentUser) {%>
       <h1>Leave a Review</h1>
       <form action="/campgrounds/<%=foundCamp._id%>/reviews" method="POST" class="vaildated_form" novalidate>
         <div class="mb-3">
@@ -39,16 +43,18 @@
         </div>
         <button class="btn btn-success mb-3">Submit</button>
       </form>
+      <%}%>
         <% for (let i of foundCamp.review) {%>
           <div class="card mb-3">
             <div class="mb-3">
-              <h5 class="card-title"><%=foundCamp.title%></h5>
-              <p class="card-text"><%=foundCamp.description%></p>
-              <p>Rating: <%=i.rating%></p>
+              <h4>Rating: <%=i.rating%></h4>
+              <h6 class="card-subtitle mb-2 text-muted"><%=i.author.username%></h6>
               <p>Review: <%=i.body%></p>
+              <% if(currentUser && i.author.equals(currentUser._id)) {%>
               <form action="/campgrounds/<%=foundCamp._id%>/reviews/<%=i._id%>?_method=DELETE" method="POST">
-                <button class=" btn btn-danger">Delete</button>
+                <button class="btn btn-danger">Delete</button>
               </form>
+              <% } %>
             </div>
           </div>
         <%}%>
