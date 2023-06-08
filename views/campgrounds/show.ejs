@@ -1,5 +1,5 @@
 <% layout('layout/boilerplate.ejs') %>
-
+<link rel="stylesheet" href="/stylesheet/StatRating.css"/>
 <div class="row">
     <div class="col-6">
         <div class="card mb-4" style="margin-top: 60px;">
@@ -31,11 +31,23 @@
       <h1>Leave a Review</h1>
       <form action="/campgrounds/<%=foundCamp._id%>/reviews" method="POST" class="vaildated_form" novalidate>
         <div class="mb-3">
-          <label for="Rating">Rating</label>
-          <input class="form-range" type="range" min="1" max="5" name="review[rating]" id="Rating">
+          <fieldset class="starability-slot">
+            <legend>Rating:</legend>
+            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="0" checked aria-label="No rating." />
+            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+            <label for="first-rate1" title="Terrible">1 star</label>
+            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+            <label for="first-rate2" title="Not good">2 stars</label>
+            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+            <label for="first-rate3" title="Average">3 stars</label>
+            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+            <label for="first-rate4" title="Very good">4 stars</label>
+            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+            <label for="first-rate5" title="Amazing">5 stars</label>
+          </fieldset>
         </div>
         <div class="mb-2">
-          <label class="form-label" for="review">Review</label>
+          <legend class="form-label" for="review">Review: </legend>
           <textarea class="form-control" name="review[body]" id="review" cols="70" rows="3" required></textarea>
           <div class="valid-feedback">
             Looks Good!
@@ -47,9 +59,10 @@
         <% for (let i of foundCamp.review) {%>
           <div class="card mb-3">
             <div class="mb-3">
-              <h4>Rating: <%=i.rating%></h4>
-              <h6 class="card-subtitle mb-2 text-muted"><%=i.author.username%></h6>
-              <p>Review: <%=i.body%></p>
+              <h4><%=i.author.username%></h4>
+              <p class="starability-result" data-rating="<%=i.rating%>"></p>
+              <h5>Reviews:</h5>
+              <p><%=i.body%></p>
               <% if(currentUser && i.author.equals(currentUser._id)) {%>
               <form action="/campgrounds/<%=foundCamp._id%>/reviews/<%=i._id%>?_method=DELETE" method="POST">
                 <button class="btn btn-danger">Delete</button>
