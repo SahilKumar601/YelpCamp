@@ -1,9 +1,9 @@
 <% layout('layout/boilerplate.ejs') %>   
     <div class="row">
-        <h1 class="text-center">New Campgorund</h1>
+        <h1 class="text-center">Edit Campgorund</h1>
         <div class="col-6 offset-3">
     
-            <form action="/campgrounds/<%=camp._id%>?_method=PUT" method="POST">
+            <form action="/campgrounds/<%=camp._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
                 <div class="mb-3">
                     <label class="form-label" for="title">Title</label>
                     <input class="form-control" type="text" name="campground[title]" id="title" value="<%=camp.title%>">
@@ -13,8 +13,8 @@
                     <input class="form-control" type="text" name="campground[location]" id="location" value="<%=camp.location%>">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" for="image">Image Url</label>
-                    <input class="form-control" type="text" name="campground[image]" id="image" value="<%=camp.image%>">
+                    <label class="form-label" for="images">Image Url</label>
+                    <input class="form-control" type="file" name="images" id="images" required multiple>
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="price">CampGround Price</label>

@@ -5,7 +5,12 @@ const Review=require('./review.js')
 
 const CampgroundSchema=new Schema({
     title:String,
-    image:String,
+    images:[
+        {
+            url:String,
+            filename:String
+        }
+    ],
     description:String,
     price:Number,
     location:String,

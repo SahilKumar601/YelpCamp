@@ -8,9 +8,12 @@ module.exports.renderNewForm=(req, res) => {
     res.render("campgrounds/new.ejs");
 }
 module.exports.newCamp=async (req, res,next) => {
+    
     const camp = new Campground(req.body.campground);
+    camp.images=req.files.map(f=>({url:f.path,filename:f.filename}));
     camp.author=req.user._id;
     await camp.save();
+    console.log(camp);
     req.flash('success','Campground Added!!!!');
     res.redirect(`/campgrounds/${camp._id}`);
 }
@@ -37,6 +40,9 @@ module.exports.renderEditPage=async(req,res,next)=>{
 module.exports.updateCamp=async(req,res,next)=>{
     const {id}=req.params;
     const UpdateCamp=await Campground.findByIdAndUpdate(id,req.body.campground,{new:true})
+    image=req.files.map(f=>({url:f.path,filename:f.filename}));
+    UpdateCamp.images.push(...image);
+    await UpdateCamp.save();
     req.flash('success','Updated Successfully')
     res.redirect(`/campgrounds/${UpdateCamp._id}`)
 }

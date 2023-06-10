@@ -1,13 +1,13 @@
+if (process.env.NODE_ENV!=="production") {
+  require('dotenv').config()
+}
+
 const express = require("express");
 const app = express();
 const path = require("path");
 const ejsMate=require('ejs-mate');
-const catchAsync=require('./utils/catchAsync');
 const ExpressError=require('./utils/ExpressError.js');
-const Campground = require("./models/campgrounds");
-const {campgroundSchema,reviewSchema}=require('./schema.js');
 const mongoose = require("mongoose");
-const Review =require("./models/review.js");
 const methodOverride = require("method-override");
 const session = require("express-session");
 const flash=require('connect-flash');
@@ -18,8 +18,7 @@ const passport=require('passport')
 const LocalStrategy=require('passport-local');
 const User =require('./models/user.js')
 
-mongoose
-.connect("mongodb://127.0.0.1:27017/yelp-camp")
+mongoose.connect("mongodb://127.0.0.1:27017/yelp-camp")
 .then(() => {
     console.log("Mongoose Connected Successfully");
 })
