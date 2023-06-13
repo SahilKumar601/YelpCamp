@@ -7,7 +7,7 @@ module.exports.campgroundSchema=Joi.object({
       location:Joi.string().required(),
       description:Joi.string().required()  
     }).required(),
-    deleteImage:Joi.array()
+    deleteImage:Joi.array(),
   })
 
 module.exports.reviewSchema=Joi.object({

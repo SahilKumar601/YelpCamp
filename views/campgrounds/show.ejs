@@ -1,7 +1,9 @@
 <% layout('layout/boilerplate.ejs') %>
 <link rel="stylesheet" href="/stylesheet/StatRating.css"/>
+
 <div class="row">
-    <div class="col-6">
+  <div class="col-6">
+      <div id="map" style=" margin-top: 40px; width: 650px; height: 300px;"></div>
       <div id="campgroundcarousel" class="carousel slide" style="margin-top: 40px;" data-bs-ride="carousel">
         <div class="carousel-inner">
           <% foundCamp.images.forEach((img,i) => {%>
@@ -91,3 +93,8 @@
         <%}%>
     </div>
 </div>
+<script>
+  const accesstoken='<%-process.env.MAP_BOX_TOKEN%>';
+  const camp=<%- JSON.stringify(foundCamp) %>;
+</script>
+<script src="/JavaScripts/showMap.js"></script>
