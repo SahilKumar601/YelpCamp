@@ -3,7 +3,6 @@
 
 <div class="row">
   <div class="col-6">
-      <div id="map" style=" margin-top: 40px; width: 650px; height: 300px;"></div>
       <div id="campgroundcarousel" class="carousel slide" style="margin-top: 40px;" data-bs-ride="carousel">
         <div class="carousel-inner">
           <% foundCamp.images.forEach((img,i) => {%>
@@ -46,7 +45,8 @@
             </div>
           </div>
     </div>
-    <div class="col-6"style="margin-top: 60px;">
+    <div class="col-6">
+      <div id="map" style=" margin-top: 40px; width: 650px; height: 300px;"></div>
       <% if(currentUser) {%>
       <h1>Leave a Review</h1>
       <form action="/campgrounds/<%=foundCamp._id%>/reviews" method="POST" class="vaildated_form" novalidate>

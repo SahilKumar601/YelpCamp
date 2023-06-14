@@ -1,10 +1,15 @@
 <% layout('layout/boilerplate.ejs')%>
-    <h1>ALL CampGrounds </h1>
+<div id="map" style="margin-top: 40px; width: 100%; height: 500px;"></div>
+    <h1>ALL Hotels </h1>
 <% for(let i of camps) {%>
     <div class="card">
         <div class="row">
             <div class="col-md-4">
-                <img src="<%=i.images[0].url%>" alt="" class="img-fluid">
+                <% if(i.images.length) {%>
+                    <img src="<%=i.images[0].url%>" alt="" class="img-fluid">
+                <% }else{ %>
+                    <img src="" alt="" class="img-fluid">
+                <% } %>  
             </div>
             <div class="col-mg-8">
                 <h3 class="card-title"><%=i.title%></h3>
@@ -17,3 +22,9 @@
         </div>
     </div>
 <% } %>
+<script>
+    const accessToken='<%-process.env.MAP_BOX_TOKEN%>';
+    const camp={features: <%-JSON.stringify(camps)%>};
+
+  </script>
+  <script src="/JavaScripts/clusterMap.js"></script>
