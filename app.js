@@ -61,7 +61,7 @@ app.use('/campgrounds',campgrounds_route)
 app.use('/campgrounds/:id/reviews',review_route)
 app.use('/',User_route)
 app.get("/", (req, res) => { 
-  res.send("Yelp Camp Home Page");
+  res.render('home.ejs');
 });
 app.all('*',(req,res,next)=>{
   next(new ExpressError('Page Not Found',404))

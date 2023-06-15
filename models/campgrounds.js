@@ -2,6 +2,8 @@ const mongoose =require('mongoose')
 const Schema=mongoose.Schema;
 const Review=require('./review.js')
 
+const opts= { toJSON: {virtuals:true} };
+
 const ImagesSchema=new Schema({
     url:String,
     filename:String
@@ -37,7 +39,7 @@ const CampgroundSchema=new Schema({
             ref:'review'
         }
     ]
-})
+},opts)
 CampgroundSchema.post('findOneAndDelete',async function(doc){
     if(doc){
         await Review.deleteMany({
@@ -46,5 +48,8 @@ CampgroundSchema.post('findOneAndDelete',async function(doc){
             }
         })
     }
+})
+CampgroundSchema.virtual('properties.popupMarker').get(function (){
+    return `<strong><a href="campgrounds/${this._id}">${this.title}</a></strong>`
 })
 module.exports=mongoose.model('Campground',CampgroundSchema);
