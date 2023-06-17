@@ -2,7 +2,7 @@
 <div id="map" style="margin-top: 40px; width: 100%; height: 500px;"></div>
     <h1>ALL Campgrounds </h1>
 <% for(let i of camps) {%>
-    <div class="card">
+    <div class="card mb-3">
         <div class="row">
             <div class="col-md-4">
                 <% if(i.images.length) {%>
@@ -11,7 +11,7 @@
                     <img src="" alt="" class="img-fluid">
                 <% } %>  
             </div>
-            <div class="col-mg-8">
+            <div class="col-md-8">
                 <h3 class="card-title"><%=i.title%></h3>
                 <p class="card-text"><%=i.description%></p>
                 <p class="card-text">
@@ -24,7 +24,7 @@
 <% } %>
 <script>
     const accessToken='<%-process.env.MAP_BOX_TOKEN%>';
-    const camp={features: <%-JSON.stringify(camps)%>};
+    const camp={features:<%-JSON.stringify(camps)%>};
 
   </script>
   <script src="/JavaScripts/clusterMap.js"></script>
