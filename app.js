@@ -10,6 +10,7 @@ const ExpressError=require('./utils/ExpressError.js');
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const session = require("express-session");
+const MongoStore=require('connect-mongo');
 const flash=require('connect-flash');
 const campgrounds_route = require('./routes/campground_routes.js')
 const review_route = require('./routes/review_routes.js');
@@ -19,8 +20,8 @@ const LocalStrategy=require('passport-local');
 const User =require('./models/user.js')
 const mongoSanitize=require('express-mongo-sanitize');
 const helmet=require('helmet')
-
-mongoose.connect("mongodb://127.0.0.1:27017/yelp-camp")
+const dbUrl="mongodb://127.0.0.1:27017/yelp-camp"
+mongoose.connect(dbUrl)
 .then(() => {
     console.log("Mongoose Connected Successfully");
 })
@@ -37,8 +38,19 @@ app.use(express.static(path.join(__dirname,'public')))
 app.use(mongoSanitize({
   replaceWith:'_'
 }));
+const store=MongoStore.create({
+  mongoUrl:dbUrl,
+  touchAfter:24*60*60,
+  crypto:{
+    secret:'c#q2SAdin',
+  }
+})
+store.on('error',function (e){
+  console.log('storage erroe',e);
+})
 
 const sessionconfig={
+  store,
   name:'connection',
   secret:'c#q2SAdin',
   resave:false,

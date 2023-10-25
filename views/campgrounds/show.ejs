@@ -30,7 +30,7 @@
             <ul class="list-group list-group-flush">
               <li class="list-group-item text-muted"><%=foundCamp.location%></li>
               <li class="list-group-item">Submitted By: <%=foundCamp.author.username%></li>
-              <li class="list-group-item">$<%=foundCamp.price%>/night</li>
+              <li class="list-group-item"><%=foundCamp.price%>/night</li>
             </ul>
             <% if(currentUser && foundCamp.author.equals(currentUser._id)) {%>
             <div class="card-body">

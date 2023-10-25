@@ -10,6 +10,6 @@ const userSchema =new schema({
     }
 
 })
-userSchema.plugin(passportlocalmongoose) //This Function will be adding a Password Field Automatically
+userSchema.plugin(passportlocalmongoose) //This Function will be adding a Password Field And User Field Automatically
 
 module.exports=mongoose.model('User',userSchema);
