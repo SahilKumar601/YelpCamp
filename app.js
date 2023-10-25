@@ -1,11 +1,8 @@
-if (process.env.NODE_ENV!=="production") {
-  require('dotenv').config()
-}
-
 const express = require("express");
 const app = express();
 const path = require("path");
 const ejsMate=require('ejs-mate');
+require('dotenv').config()
 const ExpressError=require('./utils/ExpressError.js');
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
@@ -20,7 +17,7 @@ const LocalStrategy=require('passport-local');
 const User =require('./models/user.js')
 const mongoSanitize=require('express-mongo-sanitize');
 const helmet=require('helmet')
-const dbUrl="mongodb://127.0.0.1:27017/yelp-camp"
+const dbUrl=process.env.url_db;
 mongoose.connect(dbUrl)
 .then(() => {
     console.log("Mongoose Connected Successfully");
